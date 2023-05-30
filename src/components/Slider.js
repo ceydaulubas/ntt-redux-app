@@ -7,9 +7,9 @@ import { GlobalStyles } from '@mui/system';
 const MySlider = () => {
     const images = [
         'https://res.cloudinary.com/dxqyvjf5r/image/upload/v1685439572/ntt%20data/Rectangle_25_vvjc0v.png',
-        'https://res.cloudinary.com/dxqyvjf5r/image/upload/v1685439572/ntt%20data/Rectangle_25_vvjc0v.png',
-        'https://res.cloudinary.com/dxqyvjf5r/image/upload/v1685439572/ntt%20data/Rectangle_25_vvjc0v.png',
-        'https://res.cloudinary.com/dxqyvjf5r/image/upload/v1685439572/ntt%20data/Rectangle_25_vvjc0v.png',
+        'https://res.cloudinary.com/dxqyvjf5r/image/upload/v1685474386/ntt%20data/Rectangle_25_1_cubiyu.png',
+        'https://res.cloudinary.com/dxqyvjf5r/image/upload/v1685474385/ntt%20data/Rectangle_25_3_jiglre.png',
+        'https://res.cloudinary.com/dxqyvjf5r/image/upload/v1685474382/ntt%20data/Rectangle_25_2_oordbv.png',
     ];
 
     return (
