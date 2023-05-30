@@ -1,10 +1,10 @@
-import { Footer } from "../components";
+import { Footer, MySlider } from "../components";
 
 const Home = () => {
 
     return (
         <div>
-
+            <MySlider />
             <Footer />
         </div>
     )
