@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { AppBar, Toolbar, Typography, IconButton, Button, Box, Popover, Card, CardContent, CardMedia, Drawer, List, ListItem, ListItemText } from '@mui/material';
+import { AppBar, Toolbar, Typography, IconButton, Button, Box, Popover, Card, CardContent, CardMedia, Drawer, List, ListItem, ListItemText, Menu, MenuItem } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { styled } from '@mui/material/styles';
 import { Grid } from '@mui/material';
 import SearchBar from './SearchBar';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardControlKeyIcon from '@mui/icons-material/KeyboardControlKey';
 
 const MenuItemButton = styled(Button)(({ theme }) => ({
     marginRight: theme.spacing(1),
@@ -82,9 +84,12 @@ export default function NavBar() {
     const [anchorEl, setAnchorEl] = useState(null);
     const [selectedMenuItem, setSelectedMenuItem] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('Categories');
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+    const [isTablet, setIsTablet] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
     const [openDrawer, setOpenDrawer] = useState(false);
-    console.log("window.innerWidth", window.innerWidth)
+    const [anchorElMore, setAnchorElMore] = useState(null);
+    const openMore = Boolean(anchorElMore);
+    const [arrowUp, setArrowUp] = useState(false);
 
     const handleClick = (event) => {
         const menuItem = event.currentTarget.dataset.menuItem;
@@ -105,25 +110,20 @@ export default function NavBar() {
         setOpenDrawer(!openDrawer);
     };
 
-    useEffect(() => {
-        const setResponsiveness = () => {
-            return window.innerWidth < 960
-                ? setIsMobile(true)
-                : setIsMobile(false);
-        };
+    const handleMoreClick = (event) => {
+        setAnchorElMore(event.currentTarget);
+        setArrowUp(true)
+    };
 
-        setResponsiveness();
-        window.addEventListener("resize", () => setResponsiveness());
-
-        return () => {
-            window.removeEventListener("resize", () => setResponsiveness());
-        }
-    }, []);
+    const handleMoreClose = () => {
+        setAnchorElMore(null);
+        setArrowUp(false);
+    };
 
     const displayDesktop = () => {
         return (
-            <Toolbar>
-                <Grid container alignItems="center" justifyContent="space-evenly" sx={{ marginLeft: "5%", marginRight: "5%" }}>
+            <Toolbar sx={{ backgroundColor: 'white' }}>
+                <Grid container alignItems="center" justifyContent="space-evenly" sx={{ marginLeft: "7%", marginRight: "6%" }}>
                     {['Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item'].map((item, index) => (
                         <MenuItemButton
                             key={index}
@@ -140,9 +140,70 @@ export default function NavBar() {
         );
     };
 
+    const displayTablet = () => (
+        <Toolbar sx={{ backgroundColor: 'white' }}>
+            <Grid container alignItems="center" justifyContent="space-between" sx={{ marginLeft: "5%", marginRight: "5%" }}>
+                {['Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item'].map((item, index) => (
+                    <MenuItemButton
+                        key={index}
+                        aria-label={item}
+                        onClick={handleClick}
+                        data-menu-item={item}
+                        sx={{ backgroundColor: 'transparent', color: '#6A6D70' }}
+                    >
+                        <Typography variant="body1">{item}</Typography>
+                    </MenuItemButton>
+                ))}
+                <Typography
+                    aria-label="more"
+                    aria-controls="long-menu"
+                    aria-haspopup="true"
+                    onClick={handleMoreClick}
+                    sx={{ backgroundColor: 'transparent', color: '#6A6D70', paddingBottom: '1%' }}
+
+                >
+                    More
+                    {arrowUp ? <KeyboardControlKeyIcon /> : <KeyboardArrowDownIcon />}
+                </Typography>
+                <Menu
+                    id="long-menu"
+                    anchorEl={anchorElMore}
+                    keepMounted
+                    open={openMore}
+                    onClose={handleMoreClose}
+                    PaperProps={{
+                        style: {
+                            maxHeight: 48 * 4.5,
+                            width: '20ch',
+                            backgroundColor: '#F4F5F6',
+                            color: '#6A6D70',
+                            padding: '2%'
+                        },
+                    }}
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'center',
+                    }}
+                    transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'center',
+                    }}
+                >
+
+
+                    {['Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item'].map((option) => (
+                        <MenuItem key={option} onClick={handleMoreClose}>
+                            {option}
+                        </MenuItem>
+                    ))}
+                </Menu>
+            </Grid>
+        </Toolbar>
+    );
+
     const displayMobile = () => {
         return (
-            <Toolbar>
+            <Toolbar sx={{ backgroundColor: 'white' }}>
                 <IconButton
                     edge="start"
                     color="inherit"
@@ -170,11 +231,35 @@ export default function NavBar() {
     };
 
 
+    useEffect(() => {
+        const setResponsiveness = () => {
+            const innerWidth = window.innerWidth;
+            if (innerWidth < 768) {
+                setIsMobile(true);
+                setIsTablet(false);
+            } else if (innerWidth >= 768 && innerWidth < 992) {
+                setIsTablet(true);
+                setIsMobile(false);
+            } else {
+                setIsTablet(false);
+                setIsMobile(false);
+            }
+        };
+
+        setResponsiveness();
+        window.addEventListener("resize", () => setResponsiveness());
+
+        return () => {
+            window.removeEventListener("resize", () => setResponsiveness());
+        }
+    }, []);
+
+
     return (
         <AppBar position="static" color="default">
             <SearchBar />
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }} />
-            {isMobile ? displayMobile() : displayDesktop()}
+            {isMobile ? displayMobile() : isTablet ? displayTablet() : displayDesktop()}
             <Popover
                 open={Boolean(anchorEl)}
                 anchorEl={anchorEl}

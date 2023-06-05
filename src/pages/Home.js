@@ -54,9 +54,8 @@ const Home = () => {
         speed: 500,
         slidesToShow: isMobile ? 1 : 4,
         slidesToScroll: isMobile ? 1 : 4,
-
     };
-    console.log(window.innerWidth)
+
     return (
         <div>
             <MySlider />
@@ -67,9 +66,6 @@ const Home = () => {
                         <ProductCard product={product} key={product.id} />
                     ))}
                 </Slider>
-
-
-
             }
             <div style={{ display: 'flex', justifyContent: 'center', margin: '2rem' }}>
                 <Button variant="contained" color="primary" endIcon={<ArrowForwardIosIcon />}>

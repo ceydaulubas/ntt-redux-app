@@ -1,18 +1,15 @@
-import React from 'react';
-import { AppBar, Toolbar, Typography, InputBase, IconButton, Grid, Button, Popover, } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { AppBar, Toolbar, Typography, InputBase, Grid, Button, Popover } from '@mui/material';
 import { styled } from '@mui/system';
 import { Search as SearchIcon, ArrowDropDown as ArrowDropDownIcon, ArrowDropUp as ArrowDropUpIcon } from '@mui/icons-material';
-
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     border: '1px solid grey',
     '&:hover': {
-        backgroundColor: "white"
+        backgroundColor: 'white',
     },
     marginLeft: '2%',
     width: '95%',
@@ -32,13 +29,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-
 const CategoryCard = styled('div')(({ theme }) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-around',
     padding: '12px',
-    width: "156px",
+    width: '156px',
     height: '194px',
     backgroundColor: '#00254F',
     borderRadius: '4px',
@@ -58,13 +54,25 @@ const CategoryTypography = styled(Typography)(({ theme }) => ({
 }));
 
 export default function SearchBar() {
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const [selectedMenuItem, setSelectedMenuItem] = React.useState(null);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [selectedMenuItem, setSelectedMenuItem] = useState(null);
+    const [isTablet, setIsTablet] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
 
-    const theme = useTheme();
-    const matchesXS = useMediaQuery(theme.breakpoints.down('xs'));
-    const matchesSM = useMediaQuery(theme.breakpoints.between('sm', 'md'));
-    const matchesMD = useMediaQuery(theme.breakpoints.between('md', 'lg'));
+    useEffect(() => {
+        const handleResize = () => {
+            const width = window.innerWidth;
+            setIsTablet(width >= 768 && width < 992);
+            setIsMobile(width < 768);
+        };
+
+        window.addEventListener('resize', handleResize);
+        handleResize();
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     const handleClick = (event, menuItem) => {
         setAnchorEl(event.currentTarget);
@@ -81,32 +89,29 @@ export default function SearchBar() {
 
     return (
         <div style={{ flexGrow: 1 }}>
-            <AppBar position="static" style={{ backgroundColor: 'white', padding: matchesXS ? '0 2%' : matchesSM ? '0 5%' : '0 9%' }}>
+            <AppBar position="static" sx={{ backgroundColor: 'white', padding: isMobile ? '5%' : isTablet ? '0 0 0 7%' : '0 0 0 9%' }}>
                 <Toolbar>
-                    <Grid container spacing={1} alignItems="center" direction={matchesXS ? "column" : "row"}>
-                        <Grid item xs={12} sm={2}>
+                    <Grid container spacing={1} alignItems="center" direction={isMobile ? 'column' : 'row'}>
+                        <Grid item xs={12} sm={2} sx={{ marginRight: isTablet ? '15%' : '0' }}>
                             <div style={{ display: 'flex', flexWrap: 'nowrap' }}>
-                                <img src="https://res.cloudinary.com/dxqyvjf5r/image/upload/v1685450512/ntt%20data/n_dzzbjs.png" alt="LogoN" style={{ width: "24px", maxWidth: "25px", marginRight: "3px" }} />
-                                <img src="https://res.cloudinary.com/dxqyvjf5r/image/upload/v1685450565/ntt%20data/t_1__tw61zp.png" alt="LogoT" style={{ width: "22px", maxWidth: "23px", marginRight: "3px" }} />
-                                <img src="https://res.cloudinary.com/dxqyvjf5r/image/upload/v1685450565/ntt%20data/t_2__xcaink.png" alt="LogoT" style={{ width: "22px", maxWidth: "23px", marginRight: "10px" }} />
-                                <img src="https://res.cloudinary.com/dxqyvjf5r/image/upload/v1685450565/ntt%20data/d_btcxwo.png" alt="LogoD" style={{ width: "24px", maxWidth: "25px", marginRight: "3px" }} />
-                                <img src="https://res.cloudinary.com/dxqyvjf5r/image/upload/v1685450565/ntt%20data/a_ofjnec.png" alt="LogoA" style={{ width: "23px", maxWidth: "23px", marginRight: "3px" }} />
-                                <img src="https://res.cloudinary.com/dxqyvjf5r/image/upload/v1685450565/ntt%20data/t_2__xcaink.png" alt="LogoT" style={{ width: "22px", maxWidth: "23px", marginRight: "3px" }} />
-                                <img src="https://res.cloudinary.com/dxqyvjf5r/image/upload/v1685450565/ntt%20data/a_1__tipobq.png" alt="LogoA" style={{ width: "23px", maxWidth: "24px", marginRight: "3px" }} />
+                                <img src="https://res.cloudinary.com/dxqyvjf5r/image/upload/v1685450512/ntt%20data/n_dzzbjs.png" alt="LogoN" style={{ width: '24px', maxWidth: '25px', marginRight: '3px' }} />
+                                <img src="https://res.cloudinary.com/dxqyvjf5r/image/upload/v1685450565/ntt%20data/t_1__tw61zp.png" alt="LogoT" style={{ width: '22px', maxWidth: '23px', marginRight: '3px' }} />
+                                <img src="https://res.cloudinary.com/dxqyvjf5r/image/upload/v1685450565/ntt%20data/t_2__xcaink.png" alt="LogoT" style={{ width: '22px', maxWidth: '23px', marginRight: '10px' }} />
+                                <img src="https://res.cloudinary.com/dxqyvjf5r/image/upload/v1685450565/ntt%20data/d_btcxwo.png" alt="LogoD" style={{ width: '24px', maxWidth: '25px', marginRight: '3px' }} />
+                                <img src="https://res.cloudinary.com/dxqyvjf5r/image/upload/v1685450565/ntt%20data/a_ofjnec.png" alt="LogoA" style={{ width: '23px', maxWidth: '23px', marginRight: '3px' }} />
+                                <img src="https://res.cloudinary.com/dxqyvjf5r/image/upload/v1685450565/ntt%20data/t_2__xcaink.png" alt="LogoT" style={{ width: '22px', maxWidth: '23px', marginRight: '3px' }} />
+                                <img src="https://res.cloudinary.com/dxqyvjf5r/image/upload/v1685450565/ntt%20data/a_1__tipobq.png" alt="LogoA" style={{ width: '23px', maxWidth: '24px' }} />
                             </div>
                         </Grid>
-                        {!matchesXS && (
-                            <Grid item xs={12} sm={matchesSM ? 7 : matchesMD ? 8 : 9}>
+                        {!isMobile && (
+                            <Grid item xs={12} sm={isTablet ? 5 : 8}>
                                 <Search>
-                                    <StyledInputBase
-                                        placeholder="Search…"
-                                        inputProps={{ 'aria-label': 'search' }}
-                                    />
+                                    <StyledInputBase placeholder="Search…" inputProps={{ 'aria-label': 'search' }} />
                                     <Button
                                         aria-label="categories"
                                         color="inherit"
                                         onClick={(e) => handleClick(e, 'Categories')}
-                                        sx={{ backgroundColor: 'grey.500', height: "40px" }}
+                                        sx={{ backgroundColor: 'grey.500', height: '40px', width: '200px', fontSize: isTablet ? "12px" : '14px' }}
                                         data-menu-item="Categories"
                                         endIcon={anchorEl ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
                                     >
@@ -144,7 +149,7 @@ export default function SearchBar() {
                                 </CategoryCard>
                             ) : null}
                         </Popover>
-                        <Grid item xs={12} sm={matchesSM ? 3 : matchesMD ? 2 : 1}>
+                        <Grid item xs={12} sm={isTablet ? 3 : 2}>
                             <Button
                                 variant="contained"
                                 color="primary"
@@ -161,24 +166,15 @@ export default function SearchBar() {
                             >
                                 <SearchIcon sx={{ color: 'white' }} />
                             </Button>
-
-
                         </Grid>
-                        {matchesXS && (
+                        {isMobile && (
                             <Grid item xs={12}>
                                 <Search>
-                                    <StyledInputBase
-                                        placeholder="Search…"
-                                        inputProps={{ 'aria-label': 'search' }}
-                                    />
+                                    <StyledInputBase placeholder="Search…" inputProps={{ 'aria-label': 'search' }} />
                                 </Search>
                             </Grid>
                         )}
-
-
                     </Grid>
-
-
                 </Toolbar>
             </AppBar>
         </div>
