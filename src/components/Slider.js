@@ -4,6 +4,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Box from '@mui/material/Box';
 import { GlobalStyles } from '@mui/system';
 
+
 const MySlider = () => {
     const images = [
         'https://res.cloudinary.com/dxqyvjf5r/image/upload/v1685439572/ntt%20data/Rectangle_25_vvjc0v.png',

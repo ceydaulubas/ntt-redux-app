@@ -9,17 +9,17 @@ export const fetchProducts = createAsyncThunk('products/fetchProducts', async ()
 
 export const productsSlice = createSlice({
     name: 'products',
-    initialState: { list: [], status: 'idle', error: null, filter: false }, // We add the filter state here
+    initialState: { list: [], status: 'idle', error: null, filter: false },
     reducers: {
         likeProduct: (state, action) => {
             const product = state.list.find((product) => product.id === action.payload)
-            if (product) {
+            if (product && product.status !== 'liked') {
                 product.status = 'liked'
             }
         },
         unlikeProduct: (state, action) => {
             const product = state.list.find((product) => product.id === action.payload)
-            if (product) {
+            if (product && product.status === 'liked') {
                 product.status = 'unliked'
             }
         },

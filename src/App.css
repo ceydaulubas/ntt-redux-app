@@ -1,3 +1,8 @@
-.App {
-  padding-right: 2%;
+.custom-slider {
+  padding-left: 1%;
+  padding-right: 1%;
+}
+
+.custom-slider .slick-dots {
+  bottom: -50px;
 }
