@@ -84,7 +84,7 @@ export default function NavBar() {
     const [anchorEl, setAnchorEl] = useState(null);
     const [selectedMenuItem, setSelectedMenuItem] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('Categories');
-    const [isTablet, setIsTablet] = useState(false);
+    const [isTablet, setIsTablet] = useState(false)
     const [isMobile, setIsMobile] = useState(false);
     const [openDrawer, setOpenDrawer] = useState(false);
     const [anchorElMore, setAnchorElMore] = useState(null);
@@ -204,14 +204,18 @@ export default function NavBar() {
     const displayMobile = () => {
         return (
             <Toolbar sx={{ backgroundColor: 'white' }}>
-                <IconButton
-                    edge="start"
-                    color="inherit"
-                    aria-label="menu"
-                    onClick={handleDrawerToggle}
-                >
-                    <MenuIcon />
-                </IconButton>
+                <Grid container alignItems="center" justifyContent="space-between">
+                    <SearchBar />
+                    <IconButton
+                        edge="start"
+                        color="inherit"
+                        aria-label="menu"
+                        onClick={handleDrawerToggle}
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                    <img src="your-logo-url" alt="Logo" style={{ height: '40px', width: '40px' }} />
+                </Grid>
                 <Drawer
                     anchor="left"
                     open={openDrawer}
@@ -222,7 +226,6 @@ export default function NavBar() {
                             <ListItem component="a" key={index}>
                                 <ListItemText primary={item} />
                             </ListItem>
-
                         ))}
                     </List>
                 </Drawer>
@@ -257,9 +260,43 @@ export default function NavBar() {
 
     return (
         <AppBar position="static" color="default">
-            <SearchBar />
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }} />
-            {isMobile ? displayMobile() : isTablet ? displayTablet() : displayDesktop()}
+            {isMobile ? (
+                <>
+                    <Toolbar sx={{ backgroundColor: 'white' }}>
+                        <Grid container direction="row" alignItems="center" justifyContent="start">
+                            <SearchBar />
+                            <IconButton
+                                edge="start"
+                                color="inherit"
+                                aria-label="menu"
+                                onClick={handleDrawerToggle}
+                            >
+                                <MenuIcon />
+                            </IconButton>
+
+                        </Grid>
+                    </Toolbar>
+                    <Drawer
+                        anchor="left"
+                        open={openDrawer}
+                        onClose={handleDrawerToggle}
+                    >
+                        <List>
+                            {['Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item'].map((item, index) => (
+                                <ListItem component="a" key={index}>
+                                    <ListItemText primary={item} />
+                                </ListItem>
+                            ))}
+                        </List>
+                    </Drawer>
+                </>
+            ) : (
+                <>
+                    <SearchBar />
+                    {isTablet ? displayTablet() : displayDesktop()}
+                </>
+            )}
             <Popover
                 open={Boolean(anchorEl)}
                 anchorEl={anchorEl}

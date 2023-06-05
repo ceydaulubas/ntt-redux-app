@@ -33,7 +33,8 @@ export const ProductCard = ({ product }) => {
         <Card style={{ maxWidth: 345, position: 'relative', border: '1px solid 	#C8C8C8', borderRadius: '10px', cursor: 'pointer' }} onClick={() => window.location.href = 'https://www.ceydaulubas.com'}>
             <div style={{ padding: '0 16px' }}>
                 <img
-                    src="https://images.unsplash.com/photo-1587387119725-9d6bac0f22fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8aG9yaXpvbnRhbHxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80"
+                    // src="https://images.unsplash.com/photo-1587387119725-9d6bac0f22fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8aG9yaXpvbnRhbHxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80"
+                    src={product.imageUrl}
                     alt={product.name}
                     style={{ width: '100%', height: 'auto', marginTop: "5%" }}
                 />

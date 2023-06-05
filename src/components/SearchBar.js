@@ -89,10 +89,14 @@ export default function SearchBar() {
 
     return (
         <div style={{ flexGrow: 1 }}>
-            <AppBar position="static" sx={{ backgroundColor: 'white', padding: isMobile ? '5%' : isTablet ? '0 0 0 7%' : '0 0 0 9%' }}>
+            <AppBar position="static" sx={{ backgroundColor: 'white', boxShadow: 'none', padding: isMobile ? '5%' : isTablet ? '0 0 0 7%' : '0 0 0 9%' }}>
                 <Toolbar>
                     <Grid container spacing={1} alignItems="center" direction={isMobile ? 'column' : 'row'}>
-                        <Grid item xs={12} sm={2} sx={{ marginRight: isTablet ? '15%' : '0' }}>
+                        <Grid item xs={12} sm={2} sx={{
+                            marginRight: isTablet ? '15%' : '0',
+                            marginBottom: isMobile ? '5%' : '0',
+                            marginLeft: isMobile ? '-35%' : '0'
+                        }}>
                             <div style={{ display: 'flex', flexWrap: 'nowrap' }}>
                                 <img src="https://res.cloudinary.com/dxqyvjf5r/image/upload/v1685450512/ntt%20data/n_dzzbjs.png" alt="LogoN" style={{ width: '24px', maxWidth: '25px', marginRight: '3px' }} />
                                 <img src="https://res.cloudinary.com/dxqyvjf5r/image/upload/v1685450565/ntt%20data/t_1__tw61zp.png" alt="LogoT" style={{ width: '22px', maxWidth: '23px', marginRight: '3px' }} />
@@ -149,28 +153,53 @@ export default function SearchBar() {
                                 </CategoryCard>
                             ) : null}
                         </Popover>
-                        <Grid item xs={12} sm={isTablet ? 3 : 2}>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                aria-label="search"
-                                sx={{
-                                    height: '40px',
-                                    width: { xs: '50px', sm: '80px' },
-                                    borderRadius: '4px',
-                                    backgroundColor: 'rgba(0, 89, 188, 1)',
-                                    '&:hover': {
-                                        backgroundColor: 'darkblue',
-                                    },
-                                }}
-                            >
-                                <SearchIcon sx={{ color: 'white' }} />
-                            </Button>
-                        </Grid>
+                        {!isMobile && (
+                            <Grid item xs={12} sm={isTablet ? 3 : 2}>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    aria-label="search"
+                                    sx={{
+                                        height: '40px',
+                                        width: { xs: '50px', sm: '80px' },
+                                        borderRadius: '4px',
+                                        backgroundColor: 'rgba(0, 89, 188, 1)',
+                                        '&:hover': {
+                                            backgroundColor: 'darkblue',
+                                        },
+                                    }}
+                                >
+                                    <SearchIcon sx={{ color: 'white' }} />
+                                </Button>
+                            </Grid>
+                        )}
                         {isMobile && (
-                            <Grid item xs={12}>
-                                <Search>
+                            <Grid item xs={12} sx={{
+                                paddingRight: '40%'
+
+                            }}>
+                                <Search sx={{
+                                    width: '170%',
+
+
+                                }}>
                                     <StyledInputBase placeholder="Search…" inputProps={{ 'aria-label': 'search' }} />
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        aria-label="search"
+                                        sx={{
+                                            height: '40px',
+                                            width: '100px',
+                                            borderRadius: '4px',
+                                            backgroundColor: 'rgba(0, 89, 188, 1)',
+                                            '&:hover': {
+                                                backgroundColor: 'darkblue',
+                                            },
+                                        }}
+                                    >
+                                        <SearchIcon sx={{ color: 'white' }} />
+                                    </Button>
                                 </Search>
                             </Grid>
                         )}
