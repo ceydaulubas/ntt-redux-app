@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { AppBar, Toolbar, Typography, InputBase, Grid, Button, Popover } from '@mui/material';
 import { styled } from '@mui/system';
-import { Search as SearchIcon, ArrowDropDown as ArrowDropDownIcon, ArrowDropUp as ArrowDropUpIcon } from '@mui/icons-material';
+import { Search as SearchIcon } from '@mui/icons-material';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardControlKeyIcon from '@mui/icons-material/KeyboardControlKey';
+
+const commonStyles = {
+    fontFamily: 'Roboto',
+    fontStyle: 'normal',
+};
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: 'white',
     border: '1px solid grey',
-    '&:hover': {
-        backgroundColor: 'white',
-    },
     marginLeft: '2%',
     width: '95%',
     display: 'flex',
@@ -18,7 +21,9 @@ const Search = styled('div')(({ theme }) => ({
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: 'grey',
+    color: ' #74777A',
+    ...commonStyles,
+    fontWeight: 500,
     '& .MuiInputBase-input': {
         padding: theme.spacing(1, 1, 1, 0),
         paddingLeft: `calc(0.2em + ${theme.spacing(1)})`,
@@ -26,6 +31,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
         [theme.breakpoints.up('md')]: {
             width: '20ch',
         },
+
     },
 }));
 
@@ -37,25 +43,32 @@ const CategoryCard = styled('div')(({ theme }) => ({
     width: '156px',
     height: '194px',
     backgroundColor: '#00254F',
-    borderRadius: '4px',
+    borderRadius: '4px solid #0059BC',
     color: '#FFFFFF',
 }));
 
 const CategoryTypography = styled(Typography)(({ theme }) => ({
-    fontFamily: 'Roboto',
-    fontStyle: 'normal',
+    ...commonStyles,
     fontWeight: 400,
     fontSize: '14px',
     lineHeight: '26px',
     cursor: 'pointer',
-    '&:hover': {
-        backgroundColor: 'rgba(0, 89, 188, 1)',
-    },
+
 }));
+
+const CategoriesButton = styled(Button)(({ theme }) => ({
+    ...commonStyles,
+    textTransform: 'capitalize',
+    backgroundColor: '#0059BC',
+    height: '40px',
+    width: '125px'
+}));
+
 
 export default function SearchBar() {
     const [anchorEl, setAnchorEl] = useState(null);
     const [selectedMenuItem, setSelectedMenuItem] = useState(null);
+    const [isButtonClicked, setIsButtonClicked] = useState(false);
     const [isTablet, setIsTablet] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
 
@@ -77,6 +90,7 @@ export default function SearchBar() {
     const handleClick = (event, menuItem) => {
         setAnchorEl(event.currentTarget);
         setSelectedMenuItem(menuItem);
+        setIsButtonClicked(true);
     };
 
     const handleCategoryClick = (item) => {
@@ -85,6 +99,7 @@ export default function SearchBar() {
 
     const handleClose = () => {
         setAnchorEl(null);
+        setIsButtonClicked(false);
     };
 
     return (
@@ -111,16 +126,24 @@ export default function SearchBar() {
                             <Grid item xs={12} sm={isTablet ? 5 : 8}>
                                 <Search>
                                     <StyledInputBase placeholder="Search…" inputProps={{ 'aria-label': 'search' }} />
-                                    <Button
+                                    <CategoriesButton
                                         aria-label="categories"
-                                        color="inherit"
                                         onClick={(e) => handleClick(e, 'Categories')}
-                                        sx={{ backgroundColor: 'grey.500', height: '40px', width: '200px', fontSize: isTablet ? "12px" : '14px' }}
+                                        sx={{
+                                            backgroundColor: '#F4F5F6',
+                                            fontWeight: '400',
+                                            height: '40px',
+                                            width: '200px',
+                                            fontSize: '14px',
+                                            color: '#32363A',
+                                            border: isButtonClicked ? '1px solid rgba(0, 89, 188, 1)' : 'none'
+                                        }}
                                         data-menu-item="Categories"
-                                        endIcon={anchorEl ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
+                                        endIcon={anchorEl ? <KeyboardControlKeyIcon /> : <KeyboardArrowDownIcon />}
                                     >
                                         Categories
-                                    </Button>
+                                    </CategoriesButton>
+
                                 </Search>
                             </Grid>
                         )}
@@ -143,7 +166,7 @@ export default function SearchBar() {
                                         <CategoryTypography
                                             variant="body1"
                                             key={index}
-                                            onMouseEnter={(e) => (e.target.style.backgroundColor = 'rgba(0, 89, 188, 1)')}
+                                            onMouseEnter={(e) => (e.target.style.backgroundColor = '#0059BC')}
                                             onMouseLeave={(e) => (e.target.style.backgroundColor = '')}
                                             onClick={() => handleCategoryClick(item)}
                                         >
@@ -155,51 +178,28 @@ export default function SearchBar() {
                         </Popover>
                         {!isMobile && (
                             <Grid item xs={12} sm={isTablet ? 3 : 2}>
-                                <Button
+                                <CategoriesButton
                                     variant="contained"
-                                    color="primary"
                                     aria-label="search"
-                                    sx={{
-                                        height: '40px',
-                                        width: { xs: '50px', sm: '80px' },
-                                        borderRadius: '4px',
-                                        backgroundColor: 'rgba(0, 89, 188, 1)',
-                                        '&:hover': {
-                                            backgroundColor: 'darkblue',
-                                        },
-                                    }}
                                 >
                                     <SearchIcon sx={{ color: 'white' }} />
-                                </Button>
+                                </CategoriesButton>
                             </Grid>
                         )}
                         {isMobile && (
                             <Grid item xs={12} sx={{
                                 paddingRight: '40%'
-
                             }}>
                                 <Search sx={{
                                     width: '170%',
-
-
                                 }}>
                                     <StyledInputBase placeholder="Search…" inputProps={{ 'aria-label': 'search' }} />
-                                    <Button
+                                    <CategoriesButton
                                         variant="contained"
-                                        color="primary"
                                         aria-label="search"
-                                        sx={{
-                                            height: '40px',
-                                            width: '100px',
-                                            borderRadius: '4px',
-                                            backgroundColor: 'rgba(0, 89, 188, 1)',
-                                            '&:hover': {
-                                                backgroundColor: 'darkblue',
-                                            },
-                                        }}
                                     >
                                         <SearchIcon sx={{ color: 'white' }} />
-                                    </Button>
+                                    </CategoriesButton>
                                 </Search>
                             </Grid>
                         )}

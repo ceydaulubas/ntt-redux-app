@@ -1,70 +1,67 @@
-# Getting Started with Create React App
+# NTT Redux App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The primary aim of this project is to duplicate the provided website as accurately as possible using React and Material UI. I'm harnessing the power and flexibility of these libraries to faithfully reproduce the design, layout, and functionality of the original website.
 
-## Available Scripts
+In addition to the design, this project delves into more complex functionalities through the use of Redux. For instance, I've implemented a feature to 'like' the cards in the slider, and keep track of the total number of liked cards. Upon clicking the 'like' icon, the status of the respective product switches to 'liked', changing the heart icon to red. Conversely, if a product is 'unliked', the heart icon appears grey.
 
-In the project directory, you can run:
+The total count of 'liked' products is dynamically displayed and is updated as and when the 'like' status of a product changes. There's a 'Begenilenler' section where you can filter to see only the products with a 'liked' status. Clicking on this section again will remove the filter, displaying all products irrespective of their 'like' status.
 
-### `npm start`
+Moreover, when a product card is clicked, you're redirected to my portfolio website. The product titles are restricted to a maximum of two lines. If a title extends beyond this limit, it gets truncated and ends with an ellipsis ('...').
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The API call is made using Axios, ensuring efficient and easy-to-manage asynchronous operations, adding another layer of reliability to this project.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+In essence, this project combines the visual aspects of Material UI and React with the state management capabilities of Redux, all working together seamlessly to create a robust and engaging user experience.
 
-### `npm test`
+Original Figma Page: https://www.figma.com/file/STzY429FfaHd51OsBVn0iE/NTT-FE?type=design&node-id=12-65&t=F9dQoc7RqOAXGWEh-0
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Api Page: https://honey-badgers-ecommerce.glitch.me/products
 
-### `npm run build`
+## View
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Web Page
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<p>
+ <img src="https://res.cloudinary.com/dxqyvjf5r/image/upload/v1686045430/ntt%20data/web1_yxgbaa.png" width="400" title="Web1">
+ <img src="https://res.cloudinary.com/dxqyvjf5r/image/upload/v1686045426/ntt%20data/web2_uzhkfe.png" width="400" title="Web2">
+</p>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Tablet
 
-### `npm run eject`
+<p>
+ <img src="https://res.cloudinary.com/dxqyvjf5r/image/upload/v1686045600/ntt%20data/tablet1_sgl91n.png" width="400" title="Tablet">
+</p>
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Mobil
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<p>
+ <img src="https://res.cloudinary.com/dxqyvjf5r/image/upload/v1686045493/ntt%20data/mobil1_su3hjo.png" width="400" title="Mobil1">
+ <img src="https://res.cloudinary.com/dxqyvjf5r/image/upload/v1686045492/ntt%20data/mobil2_dbxku1.png" width="400" title="Mobil2">
+</p>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Installation
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+To install and run this application on your local machine, follow these steps:
 
-## Learn More
+-Clone this repository to your local machine.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+-Navigate to the root directory of the cloned repository in your terminal.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+-Run `npm install` to install the necessary dependencies.
 
-### Code Splitting
+-Run `npm start` to start the application. (It will work on http://localhost:3000/)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Technologies Used
 
-### Analyzing the Bundle Size
+This application was built using the following technologies:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+-React.js
 
-### Making a Progressive Web App
+-Redux
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+-Materil UI
 
-### Advanced Configuration
+-Axios
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Deployment
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+You can see the web page: https://ntt-redux-app.netlify.app/

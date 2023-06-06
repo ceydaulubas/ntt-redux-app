@@ -7,19 +7,29 @@ import SearchBar from './SearchBar';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardControlKeyIcon from '@mui/icons-material/KeyboardControlKey';
 
+const commonStyles = {
+    fontFamily: 'Roboto',
+    fontStyle: 'normal',
+    fontSize: 14
+};
+
+const MENU_ITEMS = ["Menu Item", "Menu Item", "Menu Item", "Menu Item", "Menu Item", "Menu Item", "Menu Item", "Menu Item", "Menu Item", "Menu Item", "Menu Item", "Menu Item"]
+const CATEGORIES = ['Data', 'Category Name', 'Category Name', 'Category Name', 'Category Name'];
+const MORE_ITEMS = new Array(7).fill('Menu Item');
+const SUBHEADERS = new Array(9).fill('Subheader');
+
 const MenuItemButton = styled(Button)(({ theme }) => ({
+    ...commonStyles,
     marginRight: theme.spacing(1),
     marginLeft: theme.spacing(1),
     '&:hover': {
         backgroundColor: 'transparent',
     },
-    fontFamily: 'Roboto',
-    fontStyle: 'normal',
     fontWeight: 500,
-    fontSize: '14px',
     lineHeight: '16px',
     color: '#6A6D70',
     textTransform: 'capitalize',
+    borderBottom: props => props.selected ? '2px solid red' : 'none',
 }));
 
 const CategoryCard = styled(Card)(({ theme }) => ({
@@ -68,15 +78,26 @@ const CardImage = styled(CardMedia)(({ theme }) => ({
 }));
 
 const CategoryTypography = styled(Typography)(({ theme }) => ({
-    fontFamily: 'Roboto',
-    fontStyle: 'normal',
+    ...commonStyles,
     fontWeight: 400,
-    fontSize: '14px',
     lineHeight: '26px',
     cursor: 'pointer',
     '&:hover': {
         backgroundColor: 'rgba(0, 89, 188, 1)',
     },
+}));
+
+const HeaderTypography = styled(Typography)(({ theme }) => ({
+    ...commonStyles,
+    color: '#000000',
+    fontWeight: 400,
+}));
+
+const SubheaderTypography = styled(Typography)(({ theme }) => ({
+    ...commonStyles,
+    color: '#000000',
+    fontWeight: 400,
+    paddingTop: '2%'
 }));
 
 
@@ -124,8 +145,9 @@ export default function NavBar() {
         return (
             <Toolbar sx={{ backgroundColor: 'white' }}>
                 <Grid container alignItems="center" justifyContent="space-evenly" sx={{ marginLeft: "7%", marginRight: "6%" }}>
-                    {['Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item'].map((item, index) => (
+                    {MENU_ITEMS.map((item, index) => (
                         <MenuItemButton
+                            selected={selectedMenuItem === item}
                             key={index}
                             aria-label={item}
                             onClick={handleClick}
@@ -191,7 +213,7 @@ export default function NavBar() {
                 >
 
 
-                    {['Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item'].map((option) => (
+                    {MORE_ITEMS.map((option) => (
                         <MenuItem key={option} onClick={handleMoreClose}>
                             {option}
                         </MenuItem>
@@ -200,39 +222,6 @@ export default function NavBar() {
             </Grid>
         </Toolbar>
     );
-
-    const displayMobile = () => {
-        return (
-            <Toolbar sx={{ backgroundColor: 'white' }}>
-                <Grid container alignItems="center" justifyContent="space-between">
-                    <SearchBar />
-                    <IconButton
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        onClick={handleDrawerToggle}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <img src="your-logo-url" alt="Logo" style={{ height: '40px', width: '40px' }} />
-                </Grid>
-                <Drawer
-                    anchor="left"
-                    open={openDrawer}
-                    onClose={handleDrawerToggle}
-                >
-                    <List>
-                        {['Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item'].map((item, index) => (
-                            <ListItem component="a" key={index}>
-                                <ListItemText primary={item} />
-                            </ListItem>
-                        ))}
-                    </List>
-                </Drawer>
-            </Toolbar>
-        );
-    };
-
 
     useEffect(() => {
         const setResponsiveness = () => {
@@ -283,7 +272,7 @@ export default function NavBar() {
                         onClose={handleDrawerToggle}
                     >
                         <List>
-                            {['Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item'].map((item, index) => (
+                            {MENU_ITEMS.map((item, index) => (
                                 <ListItem component="a" key={index}>
                                     <ListItemText primary={item} />
                                 </ListItem>
@@ -312,7 +301,7 @@ export default function NavBar() {
             >
                 {selectedMenuItem === 'Categories' ? (
                     <CategoryCard>
-                        {['Data', 'Category Name', 'Category Name', 'Category Name', 'Category Name'].map((item, index) => (
+                        {CATEGORIES.map((item, index) => (
                             <CategoryTypography
                                 variant="body1"
                                 key={index}
@@ -330,31 +319,21 @@ export default function NavBar() {
                             <Grid item xs={6}>
                                 <CardContent>
                                     <Box marginTop="-20px" marginBottom="10px">
-                                        <Typography variant="h5">Header</Typography>
+                                        <HeaderTypography variant="h5"><b>Header</b></HeaderTypography>
                                     </Box>
-                                    <Typography variant="body1">Subheader</Typography>
-                                    <Typography variant="body1">Subheader</Typography>
-                                    <Typography variant="body1">Subheader</Typography>
-                                    <Typography variant="body1">Subheader</Typography>
-                                    <Typography variant="body1">Subheader</Typography>
-                                    <Typography variant="body1">Subheader</Typography>
-                                    <Typography variant="body1">Subheader</Typography>
-                                    <Typography variant="body1">Subheader</Typography>
+                                    {SUBHEADERS.map((subheader, index) => (
+                                        <SubheaderTypography key={index} variant="body1">{subheader}</SubheaderTypography>
+                                    ))}
                                 </CardContent>
                             </Grid>
                             <Grid item xs={6}>
                                 <CardContent>
                                     <Box marginTop="-20px" marginBottom="10px">
-                                        <Typography variant="h5">Header</Typography>
+                                        <HeaderTypography variant="h5"><b>Header</b></HeaderTypography>
                                     </Box>
-                                    <Typography variant="body1">Subheader</Typography>
-                                    <Typography variant="body1">Subheader</Typography>
-                                    <Typography variant="body1">Subheader</Typography>
-                                    <Typography variant="body1">Subheader</Typography>
-                                    <Typography variant="body1">Subheader</Typography>
-                                    <Typography variant="body1">Subheader</Typography>
-                                    <Typography variant="body1">Subheader</Typography>
-                                    <Typography variant="body1">Subheader</Typography>
+                                    {SUBHEADERS.map((subheader, index) => (
+                                        <SubheaderTypography key={index} variant="body1">{subheader}</SubheaderTypography>
+                                    ))}
                                 </CardContent>
                             </Grid>
                         </CardContentWrapper>
