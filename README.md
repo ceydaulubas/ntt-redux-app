@@ -35,7 +35,7 @@ Api Page: https://honey-badgers-ecommerce.glitch.me/products
 
 <p>
  <img src="https://res.cloudinary.com/dxqyvjf5r/image/upload/v1686045493/ntt%20data/mobil1_su3hjo.png" width="400" title="Mobil1">
- <img src="https://res.cloudinary.com/dxqyvjf5r/image/upload/v1686045492/ntt%20data/mobil2_dbxku1.png" width="400" title="Mobil2">
+ <img src="https://res.cloudinary.com/dxqyvjf5r/image/upload/v1686045492/ntt%20data/mobil2_dbxku1.png" width="250" title="Mobil2">
 </p>
 
 ## Installation
